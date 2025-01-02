@@ -8,7 +8,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "AbdullahMuchsin\\BelajarPhpLoginManagement\\": "test/"
+      "AbdullahMuchsin\\BelajarPhpLoginManagement\\": "tests/"
     }
   },
   "authors": [
@@ -24,6 +24,8 @@
     "phpunit/phpunit": "9.5.5"
   },
   "scripts": {
-    "server": "php -S localhost:8080 -t public"
+    "server": "php -S localhost:8080 -t public",
+    "tests": "phpunit --configuration phpunit.xml",
+    "tests:config-database": "phpunit --configuration phpunit.xml --testsuite \"Config Database\""
   }
 }
