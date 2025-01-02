@@ -1,8 +1,8 @@
 <?php
 
-namespace AbdullahMuchsin\BelajarPhpMvc\Controller;
+namespace AbdullahMuchsin\BelajarPhpLoginManagement\Controller;
 
-use AbdullahMuchsin\BelajarPhpMvc\App\Reader;
+use AbdullahMuchsin\BelajarPhpLoginManagement\App\Reader;
 
 class HomeController
 {

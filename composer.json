@@ -3,12 +3,12 @@
   "type": "project",
   "autoload": {
     "psr-4": {
-      "AbdullahMuchsin\\BelajarPhpMvc\\": "app/"
+      "AbdullahMuchsin\\BelajarPhpLoginManagement\\": "app/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "AbdullahMuchsin\\BelajarPhpMvc\\": "test/"
+      "AbdullahMuchsin\\BelajarPhpLoginManagement\\": "test/"
     }
   },
   "authors": [

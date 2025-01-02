@@ -1,6 +1,6 @@
 <?php
 
-namespace AbdullahMuchsin\BelajarPhpMvc\App\Middleware;
+namespace AbdullahMuchsin\BelajarPhpLoginManagement\App\Middleware;
 
 interface Middleware
 {

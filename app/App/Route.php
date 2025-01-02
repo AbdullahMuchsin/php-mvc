@@ -1,6 +1,6 @@
 <?php
 
-namespace AbdullahMuchsin\BelajarPhpMvc\App;
+namespace AbdullahMuchsin\BelajarPhpLoginManagement\App;
 
 class Route
 {
