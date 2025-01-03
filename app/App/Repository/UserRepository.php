@@ -19,9 +19,10 @@ class UserRepository
     public function save(User $user): User
     {
         try {
-            $statement = $this->connection->prepare("INSERT INTO users (name, password) VALUES (?,?);");
+            $statement = $this->connection->prepare("INSERT INTO users (id, name, password) VALUES (?,?,?);");
 
             $statement->execute([
+                $user->id,
                 $user->name,
                 $user->password
             ]);
@@ -44,12 +45,14 @@ class UserRepository
             $user->id = $row["id"];
             $user->name = $row["name"];
             $user->password = $row["password"];
+
+            return $user;
         } else {
             return null;
         }
     }
 
-    public function deleteAll()
+    public function deleteAll(): void
     {
         try {
             $statement = $this->connection->prepare("DELETE FROM users");

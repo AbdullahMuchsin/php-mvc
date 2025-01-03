@@ -34,4 +34,11 @@ class UserRepositoryTest extends TestCase
         Assert::assertEquals($user->name, $result->name);
         Assert::assertEquals($user->password, $result->password);
     }
+
+    public function testFindByIdNotFound()
+    {
+        $result = $this->userRepository->findById("1");
+
+        Assert::assertNull($result);
+    }
 }
