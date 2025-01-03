@@ -2,7 +2,7 @@
 
 namespace AbdullahMuchsin\BelajarPhpLoginManagement\Controller;
 
-use AbdullahMuchsin\BelajarPhpLoginManagement\App\Reader;
+use AbdullahMuchsin\BelajarPhpLoginManagement\App\View;
 
 class HomeController
 {
@@ -13,9 +13,9 @@ class HomeController
             'title' => 'Login Management',
         ];
 
-        Reader::readerView("/header", $model);
-        Reader::readerView("/home/index");
-        Reader::readerView("/footer");
+        View::render("header", $model);
+        View::render("home/index");
+        View::render("footer");
     }
 
 }
