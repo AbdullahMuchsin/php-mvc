@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login & Register - Agriculture Theme</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: linear-gradient(to right, #a8e0a1, #6ab04c);
+        color: #333;
+      }
+      .container {
+        margin-top: 50px;
+        max-width: 600px;
+      }
+      .card {
+        border-radius: 15px;
+        background-color: rgba(255, 255, 255, 0.9);
+        color: #333;
+      }
+      .form-control {
+        border-radius: 10px;
+      }
+      .btn {
+        border-radius: 10px;
+      }
+      .alert {
+        border-radius: 10px;
+      }
+      .header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .header h1 {
+        font-size: 2.5rem;
+        color: #6ab04c;
+      }
+      .header p {
+        font-size: 1.2rem;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" id="loginManagementContainer">
+      <div class="header">
+        <h1><i class="fas fa-leaf"></i> Pertanian Kita</h1>
+        <p>Silakan pilih untuk Login atau Register</p>
+      </div>
+
+      <!-- Alert Message -->
+      <div id="alertMessage" class="alert alert-success d-none" role="alert">
+        Pesan berhasil ditampilkan!
+      </div>
+
+      <!-- Button Pilihan Login/Register -->
+      <div class="text-center mb-4">
+        <button class="btn btn-primary" onclick="showLogin()">Login</button>
+        <button class="btn btn-success" onclick="showRegister()">
+          Register
+        </button>
+      </div>
+
+      <!-- Login Form -->
+      <div class="card mb-4 d-none" id="loginCard">
+        <div class="card-header text-center">
+          <h5><i class="fas fa-sign-in-alt"></i> Login</h5>
+        </div>
+        <div class="card-body">
+          <form id="loginForm">
+            <div class="form-group">
+              <label for="loginId">ID</label>
+              <input
+                type="text"
+                class="form-control"
+                id="loginId"
+                placeholder="Masukkan ID"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="loginPassword">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="loginPassword"
+                placeholder="Masukkan Password"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-success btn-block">
+              Login
+            </button>
+          </form>
+          <div class="text-center mt-3">
+            <a href="#" class="text-success">Lupa Password?</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Register Form -->
+      <div class="card d-none" id="registerCard">
+        <div class="card-header text-center">
+          <h5><i class="fas fa-user-plus"></i> Register</h5>
+        </div>
+        <div class="card-body">
+          <form id="registerForm">
+            <div class="form-group">
+              <label for="registerId">ID</label>
+              <input
+                type="text"
+                class="form-control"
+                id="registerId"
+                placeholder="Masukkan ID"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="registerName">Nama</label>
+              <input
+                type="text"
+                class="form-control"
+                id="registerName"
+                placeholder="Masukkan Nama"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="registerPassword">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="registerPassword"
+                placeholder="Masukkan Password"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-success btn-block">
+              Register
+            </button>
+          </form>
+          <div class="text-center mt-3">
+            <p>
+              Sudah punya akun?
+              <a href="#" class="text-success" onclick="showLogin()"
+                >Login di sini</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="container d-none" id="dashboardContainer">
+      <div class="card">
+        <div class="card-header text-center">
+          <h5><i class="fas fa-tachometer-alt"></i> Dashboard</h5>
+        </div>
+        <div class="card-body text-center">
+          <h4>Selamat datang di Pertanian Kita!</h4>
+          <div class="dashboard-btn py-1">
+            <button class="btn btn-info btn-block" onclick="showProfile()">
+              <i class="fas fa-user"></i> Show Profile
+            </button>
+          </div>
+          <div class="dashboard-btn py-1">
+            <button
+              class="btn btn-warning btn-block"
+              onclick="updatePassword()"
+            >
+              <i class="fas fa-key"></i> Update Password
+            </button>
+          </div>
+          <div class="dashboard-btn py-1">
+            <button class="btn btn-danger btn-block" onclick="logout()">
+              <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Update Profile -->
+    <div class="container d-none" id="updateProfileContainer">
+      <div class="card">
+        <div class="card-header text-center">
+          <h5><i class="fas fa-user-edit"></i> Update Profile</h5>
+        </div>
+        <div class="card-body">
+          <form id="updateProfileForm">
+            <div class="form-group">
+              <label for="profileId">ID</label>
+              <input
+                type="text"
+                class="form-control"
+                id="profileId"
+                placeholder="ID"
+                disabled
+              />
+            </div>
+            <div class="form-group">
+              <label for="profileName">Nama</label>
+              <input
+                type="text"
+                class="form-control"
+                id="profileName"
+                placeholder="Masukkan Nama"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-success btn-block">
+              Update Profile
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Update Password -->
+    <div class="container d-none" id="updatePasswordContainer">
+      <div class="card">
+        <div class="card-header text-center">
+          <h5><i class="fas fa-lock"></i> Update Password</h5>
+        </div>
+        <div class="card-body">
+          <form id="updatePasswordForm">
+            <div class="form-group">
+              <label for="passwordId">ID</label>
+              <input
+                type="text"
+                class="form-control"
+                id="passwordId"
+                placeholder="Masukkan ID"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="currentPassword">Sandi Sekarang</label>
+              <input
+                type="password"
+                class="form-control"
+                id="currentPassword"
+                placeholder="Masukkan Sandi Sekarang"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="newPassword">Sandi Baru</label>
+              <input
+                type="password"
+                class="form-control"
+                id="newPassword"
+                placeholder="Masukkan Sandi Baru"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-success btn-block">
+              Update Password
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      function showLogin() {
+        $("#registerCard").addClass("d-none");
+        $("#loginCard").removeClass("d-none");
+      }
+
+      function showRegister() {
+        $("#loginCard").addClass("d-none");
+        $("#registerCard").removeClass("d-none");
+      }
+
+      // Menangani submit form login
+      $("#loginForm").on("submit", function (event) {
+        event.preventDefault();
+        $("#alertMessage").removeClass("d-none").text("Login berhasil!");
+        $("#loginManagementContainer").addClass("d-none");
+        $("#dashboardContainer").removeClass("d-none");
+      });
+
+      // Menangani submit form register
+      $("#registerForm").on("submit", function (event) {
+        event.preventDefault();
+        $("#alertMessage").removeClass("d-none").text("Registrasi berhasil!");
+      });
+
+      // Menangani submit form update profile
+      $("#updateProfileForm").on("submit", function (event) {
+        event.preventDefault();
+        $("#alertMessage")
+          .removeClass("d-none")
+          .text("Profil berhasil diperbarui!");
+      });
+
+      // Menangani submit form update password
+      $("#updatePasswordForm").on("submit", function (event) {
+        event.preventDefault();
+        $("#alertMessage")
+          .removeClass("d-none")
+          .text("Password berhasil diperbarui!");
+      });
+
+      function showProfile() {
+        $("#dashboardContainer").addClass("d-none");
+        $("#updateProfileContainer").removeClass("d-none");
+      }
+
+      function updatePassword() {
+        $("#dashboardContainer").addClass("d-none");
+        $("#updatePasswordContainer").removeClass("d-none");
+      }
+
+      function logout() {
+        alert("Anda telah logout.");
+        $("#dashboardContainer").addClass("d-none");
+        $("#loginManagementContainer").removeClass("d-none");
+      }
+    </script>
+  </body>
+</html>
