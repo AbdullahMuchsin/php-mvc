@@ -1,14 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+<div class="header">
+    <h1><i class="fas fa-leaf"></i> Pertanian Kita</h1>
+    <p>Silakan pilih untuk Login atau Register</p>
+</div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $model['title']; ?></title>
-</head>
-
-<body>
-    <?= $model['about'] ?>
-</body>
-
-</html>
+<!-- Button Pilihan Login/Register -->
+<div class="text-center mb-4">
+    <button class="btn btn-primary" onclick="showLogin()">Login</button>
+    <button class="btn btn-success" onclick="showRegister()">
+        Register
+    </button>
+</div>

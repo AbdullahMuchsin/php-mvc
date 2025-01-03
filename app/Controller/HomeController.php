@@ -9,23 +9,13 @@ class HomeController
 
     public function index(): void
     {
-
         $model = [
-            'title' => 'About Me',
-            'about' => 'My Name Abdullah Muchsin, i am live in jember city with parent',
+            'title' => 'Login Management',
         ];
 
-        Reader::readerView("/home/index", $model);
+        Reader::readerView("/header", $model);
+        Reader::readerView("/home/index");
+        Reader::readerView("/footer");
     }
 
-    public function about(string $nama, string $kota): void
-    {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start(); // Mulai sesi jika belum dimulai
-        }
-
-        // Hancurkan sesi jika sudah ada
-        session_destroy();
-        echo "Nama : $nama, Kota : $kota";
-    }
 }
