@@ -8,4 +8,9 @@ class View
     {
         require __DIR__ . '/../View/' . $view . ".php";
     }
+
+    public static function redirect(string $url)
+    {
+        header("Location: " . $url);
+    }
 }

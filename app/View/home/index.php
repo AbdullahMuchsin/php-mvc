@@ -5,8 +5,8 @@
 
 <!-- Button Pilihan Login/Register -->
 <div class="text-center mb-4">
-    <button class="btn btn-primary" onclick="showLogin()">Login</button>
-    <button class="btn btn-success" onclick="showRegister()">
+    <a href="/login" class="btn btn-primary">Login</a>
+    <a href="/register" class="btn btn-success">
         Register
-    </button>
+    </a>
 </div>
