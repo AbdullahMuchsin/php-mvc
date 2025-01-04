@@ -28,14 +28,14 @@ class UserService
 
             $user = $this->userRepository->findById($request->id);
 
-            if ($user) {
+            if ($user != null) {
                 throw new ValidationException("User Id already exists");
             }
 
             $user = new User();
             $user->id = $request->id;
             $user->name = $request->name;
-            $user->password = $request->password;
+            $user->password = password_hash($request->password, PASSWORD_BCRYPT);
 
             $this->userRepository->save($user);
 
