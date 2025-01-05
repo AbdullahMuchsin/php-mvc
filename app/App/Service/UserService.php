@@ -8,6 +8,7 @@ use AbdullahMuchsin\BelajarPhpLoginManagement\App\Model\UserRegisterRequest;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Model\UserRegisterRespone;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Repository\UserRepository;
 use AbdullahMuchsin\BelajarPhpLoginManagement\Config\Database;
+use Exception;
 use PDOException;
 
 class UserService
@@ -45,7 +46,7 @@ class UserService
             Database::commitTransaction();
 
             return $respone;
-        } catch (PDOException $exception) {
+        } catch (Exception $exception) {
             Database::rollBackTransaction();
             throw $exception;
         }
