@@ -23,7 +23,7 @@ class UserController
     public function register()
     {
         $model = [
-            "title" => "User Register",
+            "title" => "User New Register",
         ];
 
         View::render('header', $model);
