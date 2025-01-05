@@ -4,6 +4,7 @@ namespace AbdullahMuchsin\BelajarPhpLoginManagement\App\Service;
 
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Domain\User;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Exception\ValidationException;
+use AbdullahMuchsin\BelajarPhpLoginManagement\App\Model\UserLoginRequest;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Model\UserRegisterRequest;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Repository\UserRepository;
 use AbdullahMuchsin\BelajarPhpLoginManagement\Config\Database;
@@ -72,4 +73,26 @@ class UserServiceTest extends TestCase
 
         $this->userService->register($request);
     }
+
+    public function testLoginSuccess()
+    {
+
+        $user = new User();
+        $user->id = "muchsin";
+        $user->name = "Abdullah Muchsin";
+        $user->password = password_hash("rahasia", PASSWORD_BCRYPT);
+
+        $this->userRepository->save($user);
+
+        $request = new UserLoginRequest();
+        $request->id = "muchsin";
+        $request->password = "rahasia";
+
+        $respone = $this->userService->login($request);
+
+        Assert::assertEquals($request->id, $respone->user->id);
+
+        Assert::assertTrue(password_verify($request->password, $respone->user->password));
+    }
+
 }
