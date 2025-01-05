@@ -95,4 +95,32 @@ class UserServiceTest extends TestCase
         Assert::assertTrue(password_verify($request->password, $respone->user->password));
     }
 
+    public function testLoginNotFound()
+    {
+        $this->expectException(ValidationException::class);
+
+        $request = new UserLoginRequest();
+        $request->id = "muchsin";
+        $request->password = "rahasia";
+
+        $this->userService->login($request);
+    }
+
+    public function testLoginWrongPassword()
+    {
+        $user = new User();
+        $user->id = "muchsin";
+        $user->name = "Abdullah Muchsin";
+        $user->password = password_hash("rahasia", PASSWORD_BCRYPT);
+
+        $this->userRepository->save($user);
+
+        $request = new UserLoginRequest();
+        $request->id = "muchsin";
+        $request->password = "salah";
+
+        $this->expectException(ValidationException::class);
+
+        $this->userService->login($request);
+    }
 }
