@@ -3,11 +3,13 @@
 namespace AbdullahMuchsin\BelajarPhpLoginManagement\Controller;
 
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Exception\ValidationException;
+use AbdullahMuchsin\BelajarPhpLoginManagement\App\Model\UserLoginRequest;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Model\UserRegisterRequest;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Repository\UserRepository;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Service\UserService;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\View;
 use AbdullahMuchsin\BelajarPhpLoginManagement\Config\Database;
+use Exception;
 
 class UserController
 {
@@ -55,7 +57,8 @@ class UserController
         }
     }
 
-    public function login() {
+    public function login()
+    {
         $model = [
             "title" => "Login User"
         ];
@@ -63,5 +66,28 @@ class UserController
         View::render("header", $model);
         View::render("user/login");
         View::render("footer");
+    }
+
+    public function postLogin()
+    {
+
+        $request = new UserLoginRequest();
+        $request->id = $_POST["id"];
+        $request->password = $_POST["password"];
+
+        try {
+            $this->service->login($request);
+
+            View::redirect("/");
+        } catch (ValidationException $exception) {
+            $model = [
+                "title" => "Login User",
+                "error" => $exception->getMessage(),
+            ];
+
+            View::render("header", $model);
+            View::render("user/login", $model);
+            View::render("footer");
+        }
     }
 }

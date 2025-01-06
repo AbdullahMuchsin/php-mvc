@@ -19,8 +19,7 @@
                     type="text"
                     class="form-control"
                     id="loginId"
-                    placeholder="Masukkan ID"
-                    required />
+                    placeholder="Masukkan ID" value="<?= $_POST["id"] ?? "" ?>" />
             </div>
             <div class="form-group">
                 <label for="loginPassword">Password</label>
@@ -29,8 +28,7 @@
                     type="password"
                     class="form-control"
                     id="loginPassword"
-                    placeholder="Masukkan Password"
-                    required />
+                    placeholder="Masukkan Password" value="<?= $_POST["password"] ?? "" ?>" />
             </div>
             <button type="submit" class="btn btn-success btn-block">Login</button>
         </form>

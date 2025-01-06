@@ -66,22 +66,26 @@ class UserService
 
     public function login(UserLoginRequest $request): UserLoginRespone
     {
-        $this->validateUserLoginRequest($request);
+        try {
+            $this->validateUserLoginRequest($request);
 
-        $user = $this->userRepository->findById($request->id);
+            $user = $this->userRepository->findById($request->id);
 
-        if ($user == null) {
-            throw new ValidationException("Id or Password is wrong");
-        }
+            if ($user == null) {
+                throw new ValidationException("Id or Password is wrong");
+            }
 
-        if (password_verify($request->password, $user->password)) {
+            if (password_verify($request->password, $user->password)) {
 
-            $respone = new UserLoginRespone();
-            $respone->user = $user;
+                $respone = new UserLoginRespone();
+                $respone->user = $user;
 
-            return $respone;
-        } else {
-            throw new ValidationException("Id or Password is wrong");
+                return $respone;
+            } else {
+                throw new ValidationException("Id or Password is wrong");
+            }
+        } catch (Exception $exception) {
+            throw $exception;
         }
     }
 
