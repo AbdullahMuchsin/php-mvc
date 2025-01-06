@@ -13,7 +13,7 @@ class SessionService
     private SessionRepository $sessionRepository;
     private UserRepository $userRepository;
 
-    private static string $COOKIE_NAME = "NC_ABD";
+    public static string $COOKIE_NAME = "X-ABD-SESSION";
 
     public function __construct(SessionRepository $sessionRepository, UserRepository $userRepository)
     {
