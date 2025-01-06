@@ -49,7 +49,6 @@ class SessionRepository
 
     public function deleteAll(): void
     {
-        $statement =  $this->connection->prepare("DELETE FROM sessions");
-        $statement->execute();
+        $this->connection->exec("DELETE FROM sessions");
     }
 }
