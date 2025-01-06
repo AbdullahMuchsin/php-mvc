@@ -27,7 +27,7 @@ class SessionRepository
     public function findById(string $id): ?Session
     {
 
-        $statement = $this->connection->prepare("SELECT id, user_id sessions WHERE id = ?");
+        $statement = $this->connection->prepare("SELECT id, user_id FROM sessions WHERE id = ?");
         $statement->execute([$id]);
 
         if ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
