@@ -44,7 +44,7 @@
         <div class="text-center mt-3">
             <p>
                 Sudah punya akun?
-                <a href="#" class="text-success" onclick="showLogin()">Login di sini</a>
+                <a href="/register" class="text-success">Login di sini</a>
             </p>
         </div>
     </div>

@@ -54,4 +54,14 @@ class UserController
             View::render('footer');
         }
     }
+
+    public function login() {
+        $model = [
+            "title" => "Login User"
+        ];
+
+        View::render("header", $model);
+        View::render("user/login");
+        View::render("footer");
+    }
 }

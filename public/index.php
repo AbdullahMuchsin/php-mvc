@@ -16,4 +16,8 @@ Route::add('GET', '/', HomeController::class, 'index');
 Route::add("GET", "/register", UserController::class, "register");
 Route::add("POST", "/register", UserController::class, "postRegister");
 
+Route::add("GET", "/login", UserController::class, "login");
+Route::add("POST", "/login", UserController::class, "postLogin");
+
+
 Route::run();
