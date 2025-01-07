@@ -96,4 +96,11 @@ class UserController
             View::render("footer");
         }
     }
+
+    public function logout()
+    {
+        $this->session->destroy();
+
+        View::redirect("/");
+    }
 }

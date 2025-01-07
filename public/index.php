@@ -9,15 +9,16 @@ use AbdullahMuchsin\BelajarPhpLoginManagement\Controller\HomeController;
 
 Database::getConnection("prod");
 
-// Route Home
+// Route Home Controller
 Route::add('GET', '/', HomeController::class, 'index');
 
-// Route User Register
+// Route User Controller
 Route::add("GET", "/register", UserController::class, "register");
 Route::add("POST", "/register", UserController::class, "postRegister");
 
 Route::add("GET", "/login", UserController::class, "login");
 Route::add("POST", "/login", UserController::class, "postLogin");
 
+Route::add("GET", "/logout", UserController::class, "logout");
 
 Route::run();

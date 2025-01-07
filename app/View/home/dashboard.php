@@ -7,19 +7,19 @@
         <div class="card-body text-center">
             <h4>Selamat datang di Pertanian Kita!</h4>
             <div class="dashboard-btn py-1">
-                <button class="btn btn-info btn-block" onclick="showProfile()">
+                <a class="btn btn-info btn-block">
                     <i class="fas fa-user"></i> Show Profile
-                </button>
+                </a>
             </div>
             <div class="dashboard-btn py-1">
-                <button class="btn btn-warning btn-block" onclick="updatePassword()">
+                <a class="btn btn-warning btn-block">
                     <i class="fas fa-key"></i> Update Password
-                </button>
+                </a>
             </div>
             <div class="dashboard-btn py-1">
-                <button class="btn btn-danger btn-block" onclick="logout()">
+                <a href="/logout" class="btn btn-danger btn-block">
                     <i class="fas fa-sign-out-alt"></i> Logout
-                </button>
+                </a>
             </div>
         </div>
     </div>
