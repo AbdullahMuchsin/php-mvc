@@ -17,6 +17,7 @@ namespace AbdullahMuchsin\BelajarPhpLoginManagement\App\Service {
 
 namespace AbdullahMuchsin\BelajarPhpLoginManagement\App {
 
+    use AbdullahMuchsin\BelajarPhpLoginManagement\App\Domain\Session;
     use AbdullahMuchsin\BelajarPhpLoginManagement\App\Domain\User;
     use AbdullahMuchsin\BelajarPhpLoginManagement\App\Repository\SessionRepository;
     use AbdullahMuchsin\BelajarPhpLoginManagement\App\Repository\UserRepository;
@@ -178,6 +179,31 @@ namespace AbdullahMuchsin\BelajarPhpLoginManagement\App {
             $this->expectOutputRegex("[Login User]");
             $this->expectOutputRegex("[ID]");
             $this->expectOutputRegex("[Password]");
+        }
+
+        public function testLogout()
+        {
+            $user = new User();
+            $user->id = "muchsin";
+            $user->name = "Abdullah Muchsin";
+            $user->password = password_hash("rahasia", PASSWORD_BCRYPT);
+
+            $this->userRepository->save($user);
+
+            $session = new Session();
+            $session->id = uniqid();
+            $session->user_id = $user->id;
+
+            $_COOKIE[SessionService::$COOKIE_NAME] = $session->id;
+
+            $this->sessionRepository->save($session);
+
+            $this->userController->logout();
+
+            $nameCookie = SessionService::$COOKIE_NAME;
+
+            $this->expectOutputRegex("[Location: /]");
+            $this->expectOutputRegex("[$nameCookie: ]");
         }
     }
 }
