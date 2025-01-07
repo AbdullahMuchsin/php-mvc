@@ -4,14 +4,23 @@ namespace AbdullahMuchsin\BelajarPhpLoginManagement\App {
 
     function header(string $value)
     {
-        echo $value;
+        echo "Location: $value";
+    }
+}
+
+namespace AbdullahMuchsin\BelajarPhpLoginManagement\App\Service {
+    function setcookie(string $name)
+    {
+        echo "$name: ";
     }
 }
 
 namespace AbdullahMuchsin\BelajarPhpLoginManagement\App {
 
     use AbdullahMuchsin\BelajarPhpLoginManagement\App\Domain\User;
+    use AbdullahMuchsin\BelajarPhpLoginManagement\App\Repository\SessionRepository;
     use AbdullahMuchsin\BelajarPhpLoginManagement\App\Repository\UserRepository;
+    use AbdullahMuchsin\BelajarPhpLoginManagement\App\Service\SessionService;
     use AbdullahMuchsin\BelajarPhpLoginManagement\Config\Database;
     use AbdullahMuchsin\BelajarPhpLoginManagement\Controller\UserController;
     use PHPUnit\Framework\TestCase;
@@ -20,13 +29,18 @@ namespace AbdullahMuchsin\BelajarPhpLoginManagement\App {
     {
         private UserRepository $userRepository;
         private UserController $userController;
+        private SessionRepository $sessionRepository;
 
         public function setUp(): void
         {
             $this->userController = new UserController();
             $this->userRepository = new UserRepository(Database::getConnection());
+            $this->sessionRepository = new SessionRepository(Database::getConnection());
 
+            $this->sessionRepository->deleteAll();
             $this->userRepository->deleteAll();
+
+            putenv("mode=test");
         }
 
         public function testRegister()
@@ -114,7 +128,10 @@ namespace AbdullahMuchsin\BelajarPhpLoginManagement\App {
 
             $this->userController->postLogin();
 
+            $nameCookie = SessionService::$COOKIE_NAME;
+
             $this->expectOutputRegex("[Location: /]");
+            $this->expectOutputRegex("[$nameCookie: ]");
         }
 
         public function testLoginValidationError()
