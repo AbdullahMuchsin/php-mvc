@@ -5,21 +5,25 @@ namespace AbdullahMuchsin\BelajarPhpLoginManagement\Controller;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Exception\ValidationException;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Model\UserLoginRequest;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Model\UserRegisterRequest;
+use AbdullahMuchsin\BelajarPhpLoginManagement\App\Repository\SessionRepository;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Repository\UserRepository;
+use AbdullahMuchsin\BelajarPhpLoginManagement\App\Service\SessionService;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Service\UserService;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\View;
 use AbdullahMuchsin\BelajarPhpLoginManagement\Config\Database;
-use Exception;
 
 class UserController
 {
     private UserService $service;
+    private SessionService $session;
 
     public function __construct()
     {
         $connection = Database::getConnection();
         $repository = new UserRepository($connection);
         $this->service = new UserService($repository);
+        $sessionRepository = new SessionRepository($connection);
+        $this->session = new SessionService($sessionRepository, $repository);
     }
 
     public function register()
@@ -76,7 +80,9 @@ class UserController
         $request->password = $_POST["password"];
 
         try {
-            $this->service->login($request);
+            $respone = $this->service->login($request);
+
+            $this->session->create($respone->user->id);
 
             View::redirect("/");
         } catch (ValidationException $exception) {
