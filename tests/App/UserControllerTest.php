@@ -9,9 +9,9 @@ namespace AbdullahMuchsin\BelajarPhpLoginManagement\App {
 }
 
 namespace AbdullahMuchsin\BelajarPhpLoginManagement\App\Service {
-    function setcookie(string $name)
+    function setcookie(string $name, string $value)
     {
-        echo "$name: ";
+        echo "$name: $value";
     }
 }
 
