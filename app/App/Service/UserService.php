@@ -8,6 +8,8 @@ use AbdullahMuchsin\BelajarPhpLoginManagement\App\Model\UserLoginRequest;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Model\UserLoginRespone;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Model\UserRegisterRequest;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Model\UserRegisterRespone;
+use AbdullahMuchsin\BelajarPhpLoginManagement\App\Model\UserUpdateProfileRequest;
+use AbdullahMuchsin\BelajarPhpLoginManagement\App\Model\UserUpdateProfileRespone;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Repository\UserRepository;
 use AbdullahMuchsin\BelajarPhpLoginManagement\Config\Database;
 use Exception;
@@ -94,6 +96,46 @@ class UserService
         if (
             $request->id == null || $request->password == null ||
             trim($request->id) == "" || trim($request->password) == ""
+        ) {
+            throw new ValidationException("Id, and Password not blank");
+        }
+    }
+
+    public function update(UserUpdateProfileRequest $request): UserUpdateProfileRespone
+    {
+        $this->validateUserUpdateRequest($request);
+
+        try {
+            Database::beginTransaction();
+
+
+            $user = $this->userRepository->findById($request->id);
+
+            if ($user == null) {
+                throw new ValidationException("User not found");
+            }
+
+            $user->name = $request->name;
+
+            $this->userRepository->update($user);
+
+            $respone = new UserUpdateProfileRespone;
+            $respone->user = $user;
+
+            Database::commitTransaction();
+
+            return $respone;
+        } catch (Exception $exception) {
+            Database::rollBackTransaction();
+            throw $exception;
+        }
+    }
+
+    public function validateUserUpdateRequest(UserUpdateProfileRequest $request)
+    {
+        if (
+            $request->id == null || $request->id == null ||
+            trim($request->id) == "" || trim($request->id) == ""
         ) {
             throw new ValidationException("Id, and Password not blank");
         }
