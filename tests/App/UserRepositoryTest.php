@@ -3,6 +3,7 @@
 namespace AbdullahMuchsin\BelajarPhpLoginManagement\App;
 
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Domain\User;
+use AbdullahMuchsin\BelajarPhpLoginManagement\App\Repository\SessionRepository;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Repository\UserRepository;
 use AbdullahMuchsin\BelajarPhpLoginManagement\Config\Database;
 use PHPUnit\Framework\Assert;
@@ -15,6 +16,10 @@ class UserRepositoryTest extends TestCase
 
     public function setUp(): void
     {
+
+        $sessionRepository = new SessionRepository(Database::getConnection());
+        $sessionRepository->deleteAll();
+
         $this->userRepository = new UserRepository(Database::getConnection());
         $this->userRepository->deleteAll();
     }
@@ -40,5 +45,22 @@ class UserRepositoryTest extends TestCase
         $result = $this->userRepository->findById("1");
 
         Assert::assertNull($result);
+    }
+
+    public function testUpdateSuccess()
+    {
+        $user = new User();
+        $user->id = "1";
+        $user->name = "Abdullah Muchsin";
+        $user->password = "rahasia";
+
+        $this->userRepository->save($user);
+
+        $user->name = "Abdullah";
+        $result = $this->userRepository->update($user);
+
+        Assert::assertEquals($user->id, $result->id);
+        Assert::assertEquals($user->name, $result->name);
+        Assert::assertEquals($user->password, $result->password);
     }
 }
