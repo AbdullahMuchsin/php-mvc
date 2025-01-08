@@ -101,7 +101,7 @@ class UserService
         }
     }
 
-    public function update(UserUpdateProfileRequest $request): UserUpdateProfileRespone
+    public function updateProfile(UserUpdateProfileRequest $request): UserUpdateProfileRespone
     {
         $this->validateUserUpdateRequest($request);
 
