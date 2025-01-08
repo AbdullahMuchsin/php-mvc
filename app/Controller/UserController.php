@@ -2,6 +2,7 @@
 
 namespace AbdullahMuchsin\BelajarPhpLoginManagement\Controller;
 
+use AbdullahMuchsin\BelajarPhpLoginManagement\App\Domain\User;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Exception\ValidationException;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Model\UserLoginRequest;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Model\UserRegisterRequest;
