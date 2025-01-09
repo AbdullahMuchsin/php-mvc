@@ -134,8 +134,8 @@ class UserService
     public function validateUserUpdateRequest(UserUpdateProfileRequest $request)
     {
         if (
-            $request->id == null || $request->id == null ||
-            trim($request->id) == "" || trim($request->id) == ""
+            $request->id == null || $request->name == null ||
+            trim($request->id) == "" || trim($request->name) == ""
         ) {
             throw new ValidationException("Id, and Password not blank");
         }

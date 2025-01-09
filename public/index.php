@@ -21,6 +21,9 @@ Route::add("POST", "/register", UserController::class, "postRegister", [MustNotL
 Route::add("GET", "/login", UserController::class, "login", [MustNotLoginMiddleware::class]);
 Route::add("POST", "/login", UserController::class, "postLogin", [MustNotLoginMiddleware::class]);
 
+Route::add("GET", "/user/update", UserController::class, "updateProfile", [MustLoginMiddleware::class]);
+Route::add("POST", "/user/update", UserController::class, "postUpdateProfile", [MustLoginMiddleware::class]);
+
 Route::add("GET", "/logout", UserController::class, "logout", [MustLoginMiddleware::class]);
 
 Route::run();

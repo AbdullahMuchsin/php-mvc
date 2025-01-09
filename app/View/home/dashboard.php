@@ -7,8 +7,8 @@
         <div class="card-body text-center">
             <h4>Selamat datang di Pertanian Kita!</h4>
             <div class="dashboard-btn py-1">
-                <a class="btn btn-info btn-block">
-                    <i class="fas fa-user"></i> Show Profile
+                <a href="/user/update" class="btn btn-info btn-block">
+                    <i class="fas fa-user"></i> Edit Profile
                 </a>
             </div>
             <div class="dashboard-btn py-1">

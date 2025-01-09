@@ -6,12 +6,14 @@ use AbdullahMuchsin\BelajarPhpLoginManagement\App\Domain\User;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Exception\ValidationException;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Model\UserLoginRequest;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Model\UserRegisterRequest;
+use AbdullahMuchsin\BelajarPhpLoginManagement\App\Model\UserUpdateProfileRequest;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Repository\SessionRepository;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Repository\UserRepository;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Service\SessionService;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Service\UserService;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\View;
 use AbdullahMuchsin\BelajarPhpLoginManagement\Config\Database;
+use Exception;
 
 class UserController
 {
@@ -94,6 +96,52 @@ class UserController
 
             View::render("header", $model);
             View::render("user/login", $model);
+            View::render("footer");
+        }
+    }
+
+    public function updateProfile()
+    {
+
+        $user = $this->session->current();
+
+        $model = [
+            "title" => "User Update Profile",
+            "user" => [
+                "id" => $user->id,
+                "name" => $user->name,
+            ],
+        ];
+
+        View::render("header", $model);
+        View::render("home/updateProfile", $model);
+        View::render("footer");
+    }
+
+    public function postUpdateProfile()
+    {
+        $user = $this->session->current();
+
+        $request = new UserUpdateProfileRequest;
+        $request->id = $user->id;
+        $request->name = $_POST["name"];
+
+        try {
+            $this->service->updateProfile($request);
+
+            View::redirect("/");
+        } catch (Exception $exception) {
+            $model = [
+                "title" => "User Update Profile",
+                "user" => [
+                    "id" => $user->id,
+                    "name" => $_POST["name"],
+                ],
+                "error" => $exception->getMessage(),
+            ];
+
+            View::render("header", $model);
+            View::render("home/updateProfile", $model);
             View::render("footer");
         }
     }
