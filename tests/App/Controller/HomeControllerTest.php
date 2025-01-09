@@ -7,7 +7,6 @@ use AbdullahMuchsin\BelajarPhpLoginManagement\App\Domain\User;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Repository\SessionRepository;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Repository\UserRepository;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Service\SessionService;
-use AbdullahMuchsin\BelajarPhpLoginManagement\App\Service\UserService;
 use AbdullahMuchsin\BelajarPhpLoginManagement\Config\Database;
 use PHPUnit\Framework\TestCase;
 
