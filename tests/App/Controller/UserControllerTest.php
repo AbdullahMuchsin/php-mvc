@@ -205,5 +205,79 @@ namespace AbdullahMuchsin\BelajarPhpLoginManagement\App {
             $this->expectOutputRegex("[Location: /]");
             $this->expectOutputRegex("[$nameCookie: ]");
         }
+        public function testUpdateProfile()
+        {
+            $user = new User();
+            $user->id = "muchsin";
+            $user->name = "Abdullah Muchsin";
+            $user->password = password_hash("rahasia", PASSWORD_BCRYPT);
+
+            $this->userRepository->save($user);
+
+            $session = new Session();
+            $session->id = uniqid();
+            $session->user_id = $user->id;
+
+            $_COOKIE[SessionService::$COOKIE_NAME] = $session->id;
+
+            $this->sessionRepository->save($session);
+
+            $this->userController->updateProfile();
+
+            $this->expectOutputRegex("[Update Profile]");
+            $this->expectOutputRegex("[ID]");
+            $this->expectOutputRegex("[Name]");
+        }
+
+        public function testUpdateProfileSuccess()
+        {
+            $user = new User();
+            $user->id = "muchsin";
+            $user->name = "Abdullah Muchsin";
+            $user->password = password_hash("rahasia", PASSWORD_BCRYPT);
+
+            $this->userRepository->save($user);
+
+            $session = new Session();
+            $session->id = uniqid();
+            $session->user_id = $user->id;
+
+            $_COOKIE[SessionService::$COOKIE_NAME] = $session->id;
+
+            $this->sessionRepository->save($session);
+
+            $_POST["name"] = "Budi";
+
+            $this->userController->postUpdateProfile();
+
+            $this->expectOutputRegex("[Location: /]");
+        }
+
+        public function testUpdateProfileValidationError()
+        {
+            $user = new User();
+            $user->id = "muchsin";
+            $user->name = "Abdullah Muchsin";
+            $user->password = password_hash("rahasia", PASSWORD_BCRYPT);
+
+            $this->userRepository->save($user);
+
+            $session = new Session();
+            $session->id = uniqid();
+            $session->user_id = $user->id;
+
+            $_COOKIE[SessionService::$COOKIE_NAME] = $session->id;
+
+            $this->sessionRepository->save($session);
+
+            $_POST["name"] = "";
+
+            $this->userController->postUpdateProfile();
+
+            $this->expectOutputRegex("[Id, and Password not blank]");
+            $this->expectOutputRegex("[Update Profile]");
+            $this->expectOutputRegex("[ID]");
+            $this->expectOutputRegex("[Name]");
+        }
     }
 }
