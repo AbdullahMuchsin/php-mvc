@@ -1,14 +1,8 @@
 <?php
 
-namespace AbdullahMuchsin\BelajarPhpLoginManagement\App {
-
-    function header(string $value)
-    {
-        echo "Location: $value";
-    }
-}
-
 namespace AbdullahMuchsin\BelajarPhpLoginManagement\App\Middleware {
+
+    require_once __DIR__ . "/../Helper/helper.php";
 
     use AbdullahMuchsin\BelajarPhpLoginManagement\App\Domain\Session;
     use AbdullahMuchsin\BelajarPhpLoginManagement\App\Domain\User;

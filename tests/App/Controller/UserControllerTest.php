@@ -2,20 +2,7 @@
 
 namespace AbdullahMuchsin\BelajarPhpLoginManagement\App {
 
-    function header(string $value)
-    {
-        echo "Location: $value";
-    }
-}
-
-namespace AbdullahMuchsin\BelajarPhpLoginManagement\App\Service {
-    function setcookie(string $name, string $value)
-    {
-        echo "$name: $value";
-    }
-}
-
-namespace AbdullahMuchsin\BelajarPhpLoginManagement\App {
+    require_once __DIR__ . "/../../Helper/helper.php";
 
     use AbdullahMuchsin\BelajarPhpLoginManagement\App\Domain\Session;
     use AbdullahMuchsin\BelajarPhpLoginManagement\App\Domain\User;

@@ -26,6 +26,7 @@
   "scripts": {
     "server": "php -S localhost:8080 -t public",
     "tests": "phpunit --configuration phpunit.xml",
+    "tests:all": "phpunit --configuration phpunit.xml --testsuite \"Test All\"",
     "tests:config-database": "phpunit --configuration phpunit.xml --testsuite \"Config Database\""
   }
 }

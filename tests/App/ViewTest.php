@@ -2,7 +2,6 @@
 
 namespace AbdullahMuchsin\BelajarPhpLoginManagement\App;
 
-use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 
 class ViewTest extends TestCase

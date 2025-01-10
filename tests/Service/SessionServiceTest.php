@@ -2,6 +2,8 @@
 
 namespace AbdullahMuchsin\BelajarPhpLoginManagement\App\Service;
 
+require_once __DIR__ . "/../Helper/helper.php";
+
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Domain\Session;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Domain\User;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Repository\SessionRepository;
@@ -9,11 +11,6 @@ use AbdullahMuchsin\BelajarPhpLoginManagement\App\Repository\UserRepository;
 use AbdullahMuchsin\BelajarPhpLoginManagement\Config\Database;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
-
-function setcookie(string $name, string $value)
-{
-    echo "$name : $value";
-}
 
 class SessionServiceTest extends TestCase
 {
@@ -46,7 +43,7 @@ class SessionServiceTest extends TestCase
         $user_id = "muchsin";
         $session = $this->sessionService->create($user_id);
 
-        $this->expectOutputRegex("[X-ABD-SESSION : $session->id]");
+        $this->expectOutputRegex("[X-ABD-SESSION: $session->id]");
 
         $user = $this->sessionRepository->findById($session->id);
 
@@ -65,7 +62,7 @@ class SessionServiceTest extends TestCase
 
         $this->sessionService->destroy();
 
-        $this->expectOutputRegex("[X-ABD-SESSION : ]");
+        $this->expectOutputRegex("[X-ABD-SESSION: ]");
 
         $result = $this->sessionRepository->findById($session->id);
 
