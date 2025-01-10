@@ -8,6 +8,8 @@ use AbdullahMuchsin\BelajarPhpLoginManagement\App\Model\UserLoginRequest;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Model\UserLoginRespone;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Model\UserRegisterRequest;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Model\UserRegisterRespone;
+use AbdullahMuchsin\BelajarPhpLoginManagement\App\Model\UserUpdatePasswordRequest;
+use AbdullahMuchsin\BelajarPhpLoginManagement\App\Model\UserUpdatePasswordRespone;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Model\UserUpdateProfileRequest;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Model\UserUpdateProfileRespone;
 use AbdullahMuchsin\BelajarPhpLoginManagement\App\Repository\UserRepository;
@@ -56,7 +58,7 @@ class UserService
         }
     }
 
-    public function validateUserRegisterRequest(UserRegisterRequest $request)
+    private function validateUserRegisterRequest(UserRegisterRequest $request)
     {
         if (
             $request->id == null || $request->name == null || $request->password == null ||
@@ -91,7 +93,7 @@ class UserService
         }
     }
 
-    public function validateUserLoginRequest(UserLoginRequest $request)
+    private function validateUserLoginRequest(UserLoginRequest $request)
     {
         if (
             $request->id == null || $request->password == null ||
@@ -131,13 +133,55 @@ class UserService
         }
     }
 
-    public function validateUserUpdateRequest(UserUpdateProfileRequest $request)
+    private function validateUserUpdateRequest(UserUpdateProfileRequest $request)
     {
         if (
             $request->id == null || $request->name == null ||
             trim($request->id) == "" || trim($request->name) == ""
         ) {
             throw new ValidationException("Id, and Password not blank");
+        }
+    }
+
+    public function userUpdatePassword(UserUpdatePasswordRequest $request): UserUpdatePasswordRespone
+    {
+        $this->validateUserUpdatePassword($request);
+
+        try {
+            Database::beginTransaction();
+            $user = $this->userRepository->findById($request->id);
+
+            if ($user == null) {
+                throw new ValidationException("User not found!");
+            }
+
+            if (!password_verify($request->oldPassword, $user->password)) {
+                throw new ValidationException("Old password wrong!");
+            }
+
+            $user->password = password_hash($request->newPassword, PASSWORD_BCRYPT);
+
+            $this->userRepository->update($user);
+
+            Database::commitTransaction();
+
+            $respone = new UserUpdatePasswordRespone;
+            $respone->user = $user;
+
+            return $respone;
+        } catch (Exception $exception) {
+            Database::rollBackTransaction();
+            throw $exception;
+        }
+    }
+
+    private function validateUserUpdatePassword(UserUpdatePasswordRequest $request)
+    {
+        if (
+            $request->id == null || $request->oldPassword == null || $request->newPassword == null ||
+            trim($request->id) == "" || trim($request->oldPassword) == "" || trim($request->newPassword) == ""
+        ) {
+            throw new ValidationException("Id, Old Password, and New Passwor not blank");
         }
     }
 }
