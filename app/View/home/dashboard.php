@@ -12,7 +12,7 @@
                 </a>
             </div>
             <div class="dashboard-btn py-1">
-                <a class="btn btn-warning btn-block">
+                <a href="/user/update-password"  class="btn btn-warning btn-block">
                     <i class="fas fa-key"></i> Update Password
                 </a>
             </div>
